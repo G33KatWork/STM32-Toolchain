@@ -20,8 +20,7 @@ SUBMAKEFLAGS := -j$(CPUS)
 # Be verbose while building only if V is set to 1 in the environment.
 ifneq ($(V),1)
   Q := @
-  QOUTPUT := >> buildlog 2>&1
-  #QOUTPUT := >> /dev/null 2>&1
+  QOUTPUT := >> /dev/null 2>&1
   MAKEFLAGS += --no-print-directory
 endif
 

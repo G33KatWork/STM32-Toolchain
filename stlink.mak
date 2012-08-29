@@ -3,30 +3,30 @@ STLINK_GIT        := git://github.com/texane/stlink.git
 STLINK_PATCHES    := 
 
 # Clone sources
-$(TOOLCHAIN_BUILDDIR)/.stlink-clone:
-	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)
+$(TOOLCHAIN_SRCDIR)/stlink-$(STLINK_BRANCH):
+	$(Q)mkdir -p $(TOOLCHAIN_SRCDIR)
 	$(call cmd_msg,GITCLONE,$(STLINK_GIT) $(STLINK_BRANCH))
 
-	$(Q)git clone -b $(STLINK_BRANCH) $(STLINK_GIT) $(TOOLCHAIN_BUILDDIR)/stlink-$(STLINK_BRANCH)
+	$(Q)git clone -b $(STLINK_BRANCH) $(STLINK_GIT) $(TOOLCHAIN_SRCDIR)/stlink-$(STLINK_BRANCH)
 	
 	$(call cmd_msg,PATCH,$(subst $(TOOLCHAIN_PATCHDIR)/,,$(STLINK_PATCHES)))
 	$(Q)$(foreach patch,$(STLINK_PATCHES), \
-		cd $(TOOLCHAIN_BUILDDIR)/stlink-$(STLINK_BRANCH); \
+		cd $(TOOLCHAIN_SRCDIR)/stlink-$(STLINK_BRANCH); \
 		patch -Np1 -i $(patch) $(QOUTPUT); \
 	)
 	$(Q)touch $(@)
 
 
 # Configure
-$(TOOLCHAIN_BUILDDIR)/.stlink-configure: $(TOOLCHAIN_BUILDDIR)/.stlink-clone
+$(TOOLCHAIN_BUILDDIR)/.stlink-configure: $(TOOLCHAIN_SRCDIR)/stlink-$(STLINK_BRANCH)
 	$(Q)if [ -d "$(TOOLCHAIN_BUILDDIR)/stlink-build" ]; then \
 		rm -rf $(TOOLCHAIN_BUILDDIR)/stlink-build; \
 	fi
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)/stlink-build
 	$(call cmd_msg,CONFIG,stlink-$(STLINK_BRANCH) ($(TOOLCHAIN_TARGET)))
-	$(Q)cd $(TOOLCHAIN_BUILDDIR)/stlink-$(STLINK_BRANCH); ./autogen.sh $(QOUTPUT)
+	$(Q)cd $(TOOLCHAIN_SRCDIR)/stlink-$(STLINK_BRANCH); ./autogen.sh $(QOUTPUT)
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/stlink-build; \
-		../stlink-$(STLINK_BRANCH)/configure \
+		$(TOOLCHAIN_SRCDIR)/stlink-$(STLINK_BRANCH)/configure \
 		--prefix=$(TOOLCHAIN_ROOTDIR) \
 		$(QOUTPUT)
 	$(Q)touch $(@)
@@ -52,4 +52,4 @@ all-stlink: $(STLINK_TARGET)
 .PHONY: all-stlink
 
 all: $(STLINK_TARGET)
-download: $(TOOLCHAIN_BUILDDIR)/.stlink-clone
+download: $(TOOLCHAIN_SRCDIR)/stlink-$(STLINK_BRANCH)
