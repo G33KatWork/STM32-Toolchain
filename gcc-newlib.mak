@@ -109,4 +109,4 @@ all-gcc: $(GCC_TARGET)
 .PHONY: all-gcc
 
 all: $(GCC_TARGET)
-download: $(GCC_SOURCE)
+download: $(GCC_SOURCE) $(NEWLIB_SOURCE)
