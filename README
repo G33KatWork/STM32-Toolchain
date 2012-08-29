@@ -1,0 +1,18 @@
+arm-none-eabi toolchain builder
+
+Binutils 2.22
+GCC 4.7.1
+Newlib 1.20.0
+GDB 7.5
+OpenOCD 0.6.0-rc1 (with stlink protocol enabled)
+
+This toolchain is confirmed to work the the STM32F1- and STM32F4-Discovery boards.
+
+Usage: Hit make and wait
+Destination is overwritable by specifying TOOLCHAIN_ROOTDIR as a paramter to make
+Use V=1 for verbose mode
+Use CPUS=<number> to specify the number of threads
+
+example: make TOOLCHAIN_ROOTDIR=/home/user/mytoolchain
+
+Dependencies (at least): libmpc, libgmp, libmpfr, libusb
