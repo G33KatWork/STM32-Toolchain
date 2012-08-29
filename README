@@ -18,6 +18,7 @@ Do not use -j for the main Makefile!
 example: make TOOLCHAIN_ROOTDIR=/home/user/mytoolchain
 
 Other make targets:
+	download: Fetch all sources, but don't extract or build them
 	clean: Removed build-tmp directory containing temporary build files
 	distclean: Like clean, but also removes downloaded source code
 
