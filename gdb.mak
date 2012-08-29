@@ -30,7 +30,7 @@ $(TOOLCHAIN_BUILDDIR)/.gdb-configure: $(TOOLCHAIN_BUILDDIR)/.gdb-extract
 		rm -rf $(TOOLCHAIN_BUILDDIR)/gdb-build; \
 	fi
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)/gdb-build
-	$(call cmd_msg,CONFIG,$(TOOLCHAIN_TARGET)/gdb-$(GDB_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,CONFIG,gdb-$(GDB_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/gdb-build; \
 		../gdb-$(GDB_VERSION)/configure \
 		--disable-werror \
@@ -42,14 +42,14 @@ $(TOOLCHAIN_BUILDDIR)/.gdb-configure: $(TOOLCHAIN_BUILDDIR)/.gdb-extract
 
 # Compile
 $(TOOLCHAIN_BUILDDIR)/.gdb-compile: $(TOOLCHAIN_BUILDDIR)/.gdb-configure
-	$(call cmd_msg,COMPILE,$(TOOLCHAIN_TARGET)/gdb-$(GDB_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,COMPILE,gdb-$(GDB_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/gdb-build; $(MAKE) $(SUBMAKEFLAGS) $(MAKEFLAGS) all $(QOUTPUT)
 	$(Q)touch $(@)
 
 
 # Install
 $(TOOLCHAIN_BUILDDIR)/.gdb-install: $(TOOLCHAIN_BUILDDIR)/.gdb-compile
-	$(call cmd_msg,INSTALL,$(TOOLCHAIN_TARGET)/gdb-$(GDB_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,INSTALL,gdb-$(GDB_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/gdb-build; $(MAKE) $(MAKEFLAGS) install $(QOUTPUT)
 	$(Q)touch $(@)
 

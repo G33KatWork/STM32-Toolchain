@@ -64,7 +64,7 @@ $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-configure: $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-e
 		rm -rf $(TOOLCHAIN_BUILDDIR)/gcc-build; \
 	fi
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)/gcc-build
-	$(call cmd_msg,CONFIG,$(TOOLCHAIN_TARGET)/gcc-$(GCC_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,CONFIG,gcc-$(GCC_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/gcc-build; \
 		$(GCC_CONFENV) ../gcc-$(GCC_VERSION)/configure \
 			--prefix=$(TOOLCHAIN_ROOTDIR) \
@@ -91,7 +91,7 @@ $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-configure: $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-e
 
 # Compile
 $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-compile: $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-configure
-	$(call cmd_msg,COMPILE,$(TOOLCHAIN_TARGET)/gcc-$(GCC_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,COMPILE,gcc-$(GCC_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/gcc-build; \
 		$(MAKE) $(SUBMAKEFLAGS) $(MAKEFLAGS) $(QOUTPUT)
 	$(Q)touch $(@)
@@ -99,7 +99,7 @@ $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-compile: $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-con
 
 # Install
 $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-install: $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-compile
-	$(call cmd_msg,INSTALL,$(TOOLCHAIN_TARGET)/gcc-$(GCC_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,INSTALL,gcc-$(GCC_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/gcc-build; $(MAKE) $(MAKEFLAGS) install $(QOUTPUT)
 	$(Q)touch $(@)
 

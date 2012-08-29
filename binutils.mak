@@ -30,7 +30,7 @@ $(TOOLCHAIN_BUILDDIR)/.binutils-configure: $(TOOLCHAIN_BUILDDIR)/.binutils-extra
 		rm -rf $(TOOLCHAIN_BUILDDIR)/binutils-build; \
 	fi
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)/binutils-build
-	$(call cmd_msg,CONFIG,$(TOOLCHAIN_TARGET)/binutils-$(BINUTILS_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,CONFIG,binutils-$(BINUTILS_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/binutils-build; \
 		../binutils-$(BINUTILS_VERSION)/configure \
 		--disable-werror \
@@ -46,14 +46,14 @@ $(TOOLCHAIN_BUILDDIR)/.binutils-configure: $(TOOLCHAIN_BUILDDIR)/.binutils-extra
 
 # Compile
 $(TOOLCHAIN_BUILDDIR)/.binutils-compile: $(TOOLCHAIN_BUILDDIR)/.binutils-configure
-	$(call cmd_msg,COMPILE,$(TOOLCHAIN_TARGET)/binutils-$(BINUTILS_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,COMPILE,binutils-$(BINUTILS_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/binutils-build; $(MAKE) $(SUBMAKEFLAGS) $(MAKEFLAGS) all $(QOUTPUT)
 	$(Q)touch $(@)
 
 
 # Install
 $(TOOLCHAIN_BUILDDIR)/.binutils-install: $(TOOLCHAIN_BUILDDIR)/.binutils-compile
-	$(call cmd_msg,INSTALL,$(TOOLCHAIN_TARGET)/binutils-$(BINUTILS_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,INSTALL,binutils-$(BINUTILS_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/binutils-build; $(MAKE) $(MAKEFLAGS) install $(QOUTPUT)
 	$(Q)touch $(@)
 

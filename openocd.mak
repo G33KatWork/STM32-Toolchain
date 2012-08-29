@@ -30,7 +30,7 @@ $(TOOLCHAIN_BUILDDIR)/.openocd-configure: $(TOOLCHAIN_BUILDDIR)/.openocd-extract
 		rm -rf $(TOOLCHAIN_BUILDDIR)/openocd-build; \
 	fi
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)/openocd-build
-	$(call cmd_msg,CONFIG,$(TOOLCHAIN_TARGET)/openocd-$(OPENOCD_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,CONFIG,openocd-$(OPENOCD_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/openocd-build; \
 		../openocd-$(OPENOCD_VERSION)/configure \
 		--enable-maintainer-mode \
@@ -44,14 +44,14 @@ $(TOOLCHAIN_BUILDDIR)/.openocd-configure: $(TOOLCHAIN_BUILDDIR)/.openocd-extract
 
 # Compile
 $(TOOLCHAIN_BUILDDIR)/.openocd-compile: $(TOOLCHAIN_BUILDDIR)/.openocd-configure
-	$(call cmd_msg,COMPILE,$(TOOLCHAIN_TARGET)/openocd-$(OPENOCD_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,COMPILE,openocd-$(OPENOCD_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/openocd-build; $(MAKE) $(SUBMAKEFLAGS) $(MAKEFLAGS) all $(QOUTPUT)
 	$(Q)touch $(@)
 
 
 # Install
 $(TOOLCHAIN_BUILDDIR)/.openocd-install: $(TOOLCHAIN_BUILDDIR)/.openocd-compile
-	$(call cmd_msg,INSTALL,$(TOOLCHAIN_TARGET)/openocd-$(OPENOCD_VERSION) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,INSTALL,openocd-$(OPENOCD_VERSION) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/openocd-build; $(MAKE) $(MAKEFLAGS) install $(QOUTPUT)
 	$(Q)touch $(@)
 

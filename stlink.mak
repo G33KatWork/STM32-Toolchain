@@ -23,7 +23,7 @@ $(TOOLCHAIN_BUILDDIR)/.stlink-configure: $(TOOLCHAIN_BUILDDIR)/.stlink-clone
 		rm -rf $(TOOLCHAIN_BUILDDIR)/stlink-build; \
 	fi
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)/stlink-build
-	$(call cmd_msg,CONFIG,$(TOOLCHAIN_TARGET)/stlink-$(STLINK_BRANCH) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,CONFIG,stlink-$(STLINK_BRANCH) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/stlink-$(STLINK_BRANCH); ./autogen.sh $(QOUTPUT)
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/stlink-build; \
 		../stlink-$(STLINK_BRANCH)/configure \
@@ -34,14 +34,14 @@ $(TOOLCHAIN_BUILDDIR)/.stlink-configure: $(TOOLCHAIN_BUILDDIR)/.stlink-clone
 
 # Compile
 $(TOOLCHAIN_BUILDDIR)/.stlink-compile: $(TOOLCHAIN_BUILDDIR)/.stlink-configure
-	$(call cmd_msg,COMPILE,$(TOOLCHAIN_TARGET)/stlink-$(STLINK_BRANCH) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,COMPILE,stlink-$(STLINK_BRANCH) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/stlink-build; $(MAKE) $(SUBMAKEFLAGS) $(MAKEFLAGS) all $(QOUTPUT)
 	$(Q)touch $(@)
 
 
 # Install
 $(TOOLCHAIN_BUILDDIR)/.stlink-install: $(TOOLCHAIN_BUILDDIR)/.stlink-compile
-	$(call cmd_msg,INSTALL,$(TOOLCHAIN_TARGET)/stlink-$(STLINK_BRANCH) ($(TOOLCHAIN_TARGET)))
+	$(call cmd_msg,INSTALL,stlink-$(STLINK_BRANCH) ($(TOOLCHAIN_TARGET)))
 	$(Q)cd $(TOOLCHAIN_BUILDDIR)/stlink-build; $(MAKE) $(MAKEFLAGS) install $(QOUTPUT)
 	$(Q)touch $(@)
 
@@ -52,4 +52,4 @@ all-stlink: $(STLINK_TARGET)
 .PHONY: all-stlink
 
 all: $(STLINK_TARGET)
-download: $(STLINK_SOURCE)
+download: $(TOOLCHAIN_BUILDDIR)/.stlink-clone
