@@ -17,4 +17,8 @@ Do not use -j for the main Makefile!
 
 example: make TOOLCHAIN_ROOTDIR=/home/user/mytoolchain
 
+Other make targets:
+	clean: Removed build-tmp directory containing temporary build files
+	distclean: Like clean, but also removes downloaded source code
+
 Dependencies (at least): libmpc, libgmp, libmpfr, libusb
