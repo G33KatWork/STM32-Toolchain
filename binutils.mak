@@ -16,7 +16,7 @@ $(TOOLCHAIN_BUILDDIR)/.binutils-extract: $(BINUTILS_SOURCE)
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)
 	$(call cmd_msg,EXTRACT,$(subst $(SRC)/$(SRCSUBDIR)/,,$(BINUTILS_SOURCE)))
 	$(Q)tar -C $(TOOLCHAIN_BUILDDIR) -xjf $(BINUTILS_SOURCE)
-	$(call cmd_msg,PATCH,$(subst $(SRC)/$(SRCSUBDIR)/,,$(BINUTILS_PATCHES)))
+	$(call cmd_msg,PATCH,$(subst $(TOOLCHAIN_PATCHDIR)/,,$(BINUTILS_PATCHES)))
 	$(Q)$(foreach patch,$(BINUTILS_PATCHES), \
 		cd $(TOOLCHAIN_BUILDDIR)/binutils-$(BINUTILS_VERSION); \
 		patch -Np1 -i $(patch) $(QOUTPUT); \

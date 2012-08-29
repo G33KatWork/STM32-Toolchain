@@ -37,7 +37,7 @@ $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-extract: $(GCC_SOURCE) $(NEWLIB_SOURCE)
 	$(call cmd_msg,EXTRACT,$(subst $(SRC)/$(SRCSUBDIR)/,,$(GCC_SOURCE)))
 	$(Q)tar -C $(TOOLCHAIN_BUILDDIR) -xjf $(GCC_SOURCE)
 
-	$(call cmd_msg,PATCH,$(subst $(SRC)/$(SRCSUBDIR)/,,$(GCC_PATCHES)))
+	$(call cmd_msg,PATCH,$(subst $(TOOLCHAIN_PATCHDIR)/,,$(GCC_PATCHES)))
 	$(Q)$(foreach patch,$(GCC_PATCHES), \
 		cd $(TOOLCHAIN_BUILDDIR)/gcc-$(GCC_VERSION); \
 		patch -Np1 -i $(patch) $(QOUTPUT); \
@@ -46,7 +46,7 @@ $(TOOLCHAIN_BUILDDIR)/.gcc_newlib-extract: $(GCC_SOURCE) $(NEWLIB_SOURCE)
 	$(call cmd_msg,EXTRACT,$(subst $(SRC)/$(SRCSUBDIR)/,,$(NEWLIB_SOURCE)))
 	$(Q)tar -C $(TOOLCHAIN_BUILDDIR) -xzf $(NEWLIB_SOURCE)
 
-	$(call cmd_msg,PATCH,$(subst $(SRC)/$(SRCSUBDIR)/,,$(NEWLIB_PATCHES)))
+	$(call cmd_msg,PATCH,$(subst $(TOOLCHAIN_PATCHDIR)/,,$(NEWLIB_PATCHES)))
 	$(Q)$(foreach patch,$(NEWLIB_PATCHES), \
 		cd $(TOOLCHAIN_BUILDDIR)/newlib-$(NEWLIB_VERSION); \
 		patch -Np1 -i $(patch) $(QOUTPUT); \

@@ -9,7 +9,7 @@ $(TOOLCHAIN_BUILDDIR)/.stlink-clone:
 
 	$(Q)git clone -b $(STLINK_BRANCH) $(STLINK_GIT) $(TOOLCHAIN_BUILDDIR)/stlink-$(STLINK_BRANCH)
 	
-	$(call cmd_msg,PATCH,$(subst $(SRC)/$(SRCSUBDIR)/,,$(STLINK_PATCHES)))
+	$(call cmd_msg,PATCH,$(subst $(TOOLCHAIN_PATCHDIR)/,,$(STLINK_PATCHES)))
 	$(Q)$(foreach patch,$(STLINK_PATCHES), \
 		cd $(TOOLCHAIN_BUILDDIR)/stlink-$(STLINK_BRANCH); \
 		patch -Np1 -i $(patch) $(QOUTPUT); \

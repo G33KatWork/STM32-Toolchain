@@ -16,7 +16,7 @@ $(TOOLCHAIN_BUILDDIR)/.openocd-extract: $(OPENOCD_SOURCE)
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)
 	$(call cmd_msg,EXTRACT,$(subst $(SRC)/$(SRCSUBDIR)/,,$(OPENOCD_SOURCE)))
 	$(Q)tar -C $(TOOLCHAIN_BUILDDIR) -xjf $(OPENOCD_SOURCE)
-	$(call cmd_msg,PATCH,$(subst $(SRC)/$(SRCSUBDIR)/,,$(OPENOCD_PATCHES)))
+	$(call cmd_msg,PATCH,$(subst $(TOOLCHAIN_PATCHDIR)/,,$(OPENOCD_PATCHES)))
 	$(Q)$(foreach patch,$(OPENOCD_PATCHES), \
 		cd $(TOOLCHAIN_BUILDDIR)/openocd-$(OPENOCD_VERSION); \
 		patch -Np1 -i $(patch) $(QOUTPUT); \

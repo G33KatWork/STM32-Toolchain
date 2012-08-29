@@ -16,7 +16,7 @@ $(TOOLCHAIN_BUILDDIR)/.gdb-extract: $(GDB_SOURCE)
 	$(Q)mkdir -p $(TOOLCHAIN_BUILDDIR)
 	$(call cmd_msg,EXTRACT,$(subst $(SRC)/$(SRCSUBDIR)/,,$(GDB_SOURCE)))
 	$(Q)tar -C $(TOOLCHAIN_BUILDDIR) -xjf $(GDB_SOURCE)
-	$(call cmd_msg,PATCH,$(subst $(SRC)/$(SRCSUBDIR)/,,$(GDB_PATCHES)))
+	$(call cmd_msg,PATCH,$(subst $(TOOLCHAIN_PATCHDIR)/,,$(GDB_PATCHES)))
 	$(Q)$(foreach patch,$(GDB_PATCHES), \
 		cd $(TOOLCHAIN_BUILDDIR)/gdb-$(GDB_VERSION); \
 		patch -Np1 -i $(patch) $(QOUTPUT); \
