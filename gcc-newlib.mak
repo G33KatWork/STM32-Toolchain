@@ -1,7 +1,7 @@
 GCC_VERSION    	:= 4.7.1
 GCC_SOURCE     	:= $(TOOLCHAIN_SRCDIR)/gcc-$(GCC_VERSION).tar.bz2
 GCC_DOWNLOAD   	:= http://ftp.gnu.org/gnu/gcc/gcc-$(GCC_VERSION)/gcc-$(GCC_VERSION).tar.bz2
-GCC_PATCHES    	:= 
+GCC_PATCHES    	:= $(TOOLCHAIN_PATCHDIR)/gcc_4.7.1_multilib.diff
 
 NEWLIB_VERSION 	:= 1.20.0
 NEWLIB_SOURCE  	:= $(TOOLCHAIN_SRCDIR)/newlib-$(NEWLIB_VERSION).tar.gz
