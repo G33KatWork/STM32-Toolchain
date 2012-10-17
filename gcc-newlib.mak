@@ -24,7 +24,7 @@ $(GCC_SOURCE):
 	$(Q)wget -c -O $(@).part $(GCC_DOWNLOAD)
 	$(Q)mv $(@).part $(@)
 
-$(NEWLIB_SOURCE): $(GCC_SOURCE)
+$(NEWLIB_SOURCE):
 	$(call target_mkdir)
 	$(call cmd_msg,WGET,$(subst $(SRC)/,,$(@)))
 	$(Q)wget -c -O $(@).part $(NEWLIB_DOWNLOAD)
