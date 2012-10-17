@@ -1,5 +1,5 @@
 STLINK_BRANCH     := master
-STLINK_GIT        := git://github.com/texane/stlink.git
+STLINK_GIT        := https://github.com/texane/stlink.git
 STLINK_PATCHES    := 
 
 # Clone sources
